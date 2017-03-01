@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe Hand do
   let(:deck) { Deck.new }
-  let(:hand) { Hand.new(name: "Player 1") }
+  let(:hand) { Hand.new(name: "Player") }
   let(:non_face_card) { Card.new(rank: 3, suit: '♥') }
   let(:face_card) { Card.new(rank: 'Q', suit: '♥') }
   let(:ace_card) { Card.new(rank: 'A', suit: '♠') }
@@ -14,7 +14,7 @@ RSpec.describe Hand do
   end
 
   it "has a name" do
-    expect(hand.name).to eq("Player 1")
+    expect(hand.name).to eq("Player")
   end
 
   describe "#hit!" do
