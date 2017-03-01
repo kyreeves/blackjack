@@ -41,11 +41,11 @@ class Game
     while player.done? == false
       puts "Players Turn: Hit or Stand (h/s)?: ".colorize(:green)
       response = gets.chomp.downcase
-      evaluate_input(player_input: response)
+      evaluate_player_input(player_input: response)
     end
   end
 
-  def evaluate_input(player_input:)
+  def evaluate_player_input(player_input:)
     case player_input
     when "s"
       player.stand!
@@ -54,7 +54,7 @@ class Game
       player.hit!(card: next_card)
       puts player.summary
     else
-      puts "Invalid Response! Enter (h) to HIT or (s) to STAND.".colorize(:green)
+      puts "ERROR: Invalid Response! Enter (h) to HIT or (s) to STAND."
     end
   end
 
