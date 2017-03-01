@@ -64,6 +64,13 @@ RSpec.describe Hand do
       expect(hand.done?).to eq(true)
     end
 
+    it "returns true if player has a blackjack" do
+      hand.hit!(card: face_card)
+      hand.hit!(card: face_card)
+      hand.hit!(card: ace_card)
+      expect(hand.done?).to eq(true)
+    end
+
     it "returns true if player busts" do
       hand.hit!(card: face_card)
       hand.hit!(card: face_card)
