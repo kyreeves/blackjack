@@ -29,6 +29,22 @@ RSpec.describe Hand do
     end
   end
 
+  describe "#pretty_cards" do
+    it "shows all cards in the hand in a pretty format" do
+      hand.hit!(card: non_face_card)
+      hand.hit!(card: face_card)
+      expect(hand.pretty_cards).to eq('3-♥, Q-♥')
+    end
+  end
+
+  describe "#summary" do
+    it "shows a summary of hand including name, pretty_cards, and score" do
+      hand.hit!(card: non_face_card)
+      hand.hit!(card: face_card)
+      expect(hand.summary).to eq("Player's Score: 13 (3-♥, Q-♥)")
+    end
+  end
+
   describe "#score" do
     it "non-ace card hand score" do
       hand.hit!(card: non_face_card)
