@@ -7,6 +7,10 @@ class Game
     @dealer = Hand.new(name: "Dealer")
   end
 
+  def next_card
+    deck.deal!
+  end
+
   def opponents
     [player, dealer]
   end
@@ -17,23 +21,27 @@ class Game
 
   def start
     opponents.each do |opp|
-      2.times { opp.hit!(card: deck.deal!) }
+      2.times { opp.hit!(card: next_card) }
     end
   end
 
-  def initial_blackjack_check
-    if player.blackjack? || dealer.blackjack?
+  def exit_game
+    summarize
+    exit
+  end
+
+  def blackjack_check
+    if opponents.any? { |opp| opp.blackjack? }
       show_game_result
-      summarize
-      exit
+      exit_game
     end
   end
 
   def player_move
     while player.done? == false
       puts "Players Turn: Hit or Stand (h/s)?: ".colorize(:green)
-      player_input = gets.chomp.downcase
-      evaluate_input(player_input: player_input)
+      response = gets.chomp.downcase
+      evaluate_input(player_input: response)
     end
   end
 
@@ -43,7 +51,7 @@ class Game
       player.stand!
       puts "#{player.name} stands.".colorize(:green)
     when "h"
-      player.hit!(card: deck.deal!)
+      player.hit!(card: next_card)
       puts player.summary
     else
       puts "Invalid Response! Enter (h) to HIT or (s) to STAND.".colorize(:green)
@@ -53,24 +61,21 @@ class Game
   def player_bust_check
     if player.busts?
       puts "#{player.name} BUST! #{dealer.name} WINS".colorize(:light_cyan)
-      opponents.each { |opp| puts opp.summary }
-      exit
+      exit_game
     end
   end
 
   def dealer_move
     puts "Dealer's Turn: ".colorize(:green)
     while dealer.dealer_hit?(player_score: player.score)
-      card = deck.deal!
-      dealer.hit!(card: card)
+      dealer.hit!(card: next_card)
     end
   end
 
   def dealer_bust_check
     if dealer.score > 21
       puts "#{dealer.name} BUST! #{player.name} WINS!".colorize(:light_cyan)
-      summarize
-      exit
+      exit_game
     end
   end
 

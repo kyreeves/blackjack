@@ -6,14 +6,18 @@ class Card
     @suit = suit
   end
 
-  def value(score:)
+  def value
     if ['J', 'Q', 'K'].include?(rank)
       10
-    elsif rank == 'A'
-      score <= 10 ? 11 : 1
+    elsif ace?
+      11
     else
       rank
     end
+  end
+
+  def ace?
+    rank == 'A'
   end
 
   def to_s

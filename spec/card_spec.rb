@@ -3,7 +3,6 @@ require "spec_helper"
 RSpec.describe Card do
   let(:non_face_card) { Card.new(rank: 9, suit: '♠') }
   let(:face_card) { Card.new(rank: 'Q', suit: '♦') }
-  let(:ace) { Card.new(rank: 'A', suit: '♦') }
 
   it 'has a rank' do
     expect(non_face_card.rank).to eq(9)
@@ -15,19 +14,11 @@ RSpec.describe Card do
 
   describe "#value" do
     it 'returns the numerical value of a non face card' do
-      expect(non_face_card.value(score: 10)).to eq(9)
+      expect(non_face_card.value).to eq(9)
     end
 
     it 'returns 10 for a face card' do
-      expect(face_card.value(score: 1)).to eq(10)
-    end
-
-    it 'returns 11 for an ace card when score is less than or equal to 10' do
-      expect(ace.value(score: 3)).to eq(11)
-    end
-
-    it 'returns 1 for an ace card when score is greater than 10' do
-      expect(ace.value(score: 14)).to eq(1)
+      expect(face_card.value).to eq(10)
     end
   end
 

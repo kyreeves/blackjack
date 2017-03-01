@@ -7,20 +7,13 @@ class Hand
     @cards = []
   end
 
-  def to_s
-    name
-  end
-
-  def name_cards
-    name_cards = ""
-    @cards.each do |card|
-      name_cards << card.to_s
-    end
-    name_cards
+  def pretty_cards
+    names = @cards.map { |card| card.to_s }
+    names.join(", ")
   end
 
   def summary
-    score_message = "#{@name}'s Score: #{score} (#{name_cards})"
+    score_message = "#{@name}'s Score: #{score} (#{pretty_cards})"
     if name == "Player"
       score_message.colorize(:blue)
     else
@@ -30,8 +23,17 @@ class Hand
 
   def score
     score = 0
+    aces_count = 0
     @cards.each do |card|
-      score += card.value(score: score)
+      score += card.value
+      if card.ace?
+        aces_count += 1
+      end
+    end
+
+    while score > 21 && aces_count > 0
+      score -= 10
+      aces_count -= 1 
     end
     score
   end
