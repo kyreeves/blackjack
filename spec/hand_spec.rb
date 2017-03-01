@@ -1,15 +1,11 @@
 require "spec_helper"
-require "colorize"
 
 RSpec.describe Hand do
   let(:deck) { Deck.new }
   let(:hand) { Hand.new(name: "Player 1") }
   let(:non_face_card) { Card.new(rank: 3, suit: '♥') }
   let(:face_card) { Card.new(rank: 'Q', suit: '♥') }
-  let(:ace1) { Card.new(rank: 'A', suit: '♠') }
-  let(:ace2) { Card.new(rank: 'A', suit: '♥') }
-  let(:ace3) { Card.new(rank: 'A', suit: '♣') }
-  let(:ace4) { Card.new(rank: 'A', suit: '♦') }
+  let(:ace_card) { Card.new(rank: 'A', suit: '♠') }
 
   describe ".new" do
     it "initializes a hand with no cards" do
@@ -41,14 +37,14 @@ RSpec.describe Hand do
 
     it "Ace is valued at 11 when the current score <= 10" do
       hand.hit!(card: non_face_card)
-      hand.hit!(card: ace1)
+      hand.hit!(card: ace_card)
       expect(hand.score).to eq(14)
     end
 
     it "Ace is valued at 1 when the current score >= 11" do
       hand.hit!(card: face_card)
       hand.hit!(card: non_face_card)
-      hand.hit!(card: ace1)
+      hand.hit!(card: ace_card)
       expect(hand.score).to eq(14)
     end
   end
