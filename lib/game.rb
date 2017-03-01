@@ -21,6 +21,14 @@ class Game
     end
   end
 
+  def initial_blackjack_check
+    if player.blackjack? || dealer.blackjack?
+      show_game_result
+      summarize
+      exit
+    end
+  end
+
   def player_move
     while player.done? == false
       puts "Players Turn: Hit or Stand (h/s)?: ".colorize(:green)
@@ -66,20 +74,12 @@ class Game
     end
   end
 
-  def dealer_stands_message
-    puts "#{dealer.name} stands.".colorize(:green)
+  def evaluate_winner
+    opponents.max_by(&:score)
   end
 
-  def choose_winner
-    if dealer.score > player.score
-      dealer
-    elsif dealer.score < player.score
-      player
-    end
-  end
-
-  def winning_message
-    case choose_winner
+  def show_game_result
+    case evaluate_winner
     when player
       puts "Good Job! #{player.name} Wins!".colorize(:light_cyan)
     when dealer

@@ -52,11 +52,11 @@ class Hand
     score > 21
   end
 
-  def twenty_one?
+  def blackjack?
     score == 21
   end
 
   def done?
-    stand || busts? || twenty_one?
+    stand || busts? || blackjack?
   end
 end
