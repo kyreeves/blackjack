@@ -67,7 +67,7 @@ class Game
 
   def dealer_move
     puts "Dealer's Turn: ".colorize(:green)
-    while dealer.dealer_hit?(player_score: player.score)
+    while dealer.dealer_hit?
       dealer.hit!(card: next_card)
     end
   end

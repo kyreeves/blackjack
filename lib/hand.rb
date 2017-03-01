@@ -38,8 +38,8 @@ class Hand
     score
   end
 
-  def dealer_hit?(player_score:)
-    score < 17 || player_score > score
+  def dealer_hit?
+    score < 17
   end
 
   def hit!(card:)
