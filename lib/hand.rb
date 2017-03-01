@@ -13,12 +13,7 @@ class Hand
   end
 
   def summary
-    score_message = "#{@name}'s Score: #{score} (#{pretty_cards})"
-    if name == "Player"
-      score_message.colorize(:blue)
-    else
-      score_message.colorize(:red)
-    end
+    "#{@name}'s Score: #{score} (#{pretty_cards})"
   end
 
   def score

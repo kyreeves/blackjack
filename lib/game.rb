@@ -39,7 +39,7 @@ class Game
 
   def player_move
     while player.done? == false
-      puts "Players Turn: Hit or Stand (h/s)?: ".colorize(:green)
+      puts "Players Turn: Hit or Stand (h/s)?: "
       response = gets.chomp.downcase
       evaluate_player_input(player_input: response)
     end
@@ -49,7 +49,7 @@ class Game
     case player_input
     when "s"
       player.stand!
-      puts "#{player.name} stands.".colorize(:green)
+      puts "#{player.name} stands."
     when "h"
       player.hit!(card: next_card)
       puts player.summary
@@ -59,7 +59,7 @@ class Game
   end
 
   def dealer_move
-    puts "Dealer's Turn: ".colorize(:green)
+    puts "Dealer's Turn: "
     while dealer.dealer_hit?
       dealer.hit!(card: next_card)
     end
@@ -74,7 +74,7 @@ class Game
   end
 
   def bust_event(buster:, winner:)
-    puts "#{buster.name} BUSTS! #{winner.name} WINS!".colorize(:light_cyan)
+    puts "#{buster.name} BUSTS! #{winner.name} WINS!"
     exit_game
   end
 
@@ -89,11 +89,11 @@ class Game
   def show_game_result
     case evaluate_winner
     when player
-      puts "Good Job! #{player.name} Wins!".colorize(:light_cyan)
+      puts "Good Job! #{player.name} Wins!"
     when dealer
-      puts "Oh no! #{dealer.name} Wins!".colorize(:light_cyan)
+      puts "Oh no! #{dealer.name} Wins!"
     else
-      puts "It's a push!".colorize(:light_cyan)
+      puts "It's a push!"
     end
   end
 
