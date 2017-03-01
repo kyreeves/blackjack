@@ -58,13 +58,6 @@ class Game
     end
   end
 
-  def player_bust_check
-    if player.busts?
-      puts "#{player.name} BUST! #{dealer.name} WINS".colorize(:light_cyan)
-      exit_game
-    end
-  end
-
   def dealer_move
     puts "Dealer's Turn: ".colorize(:green)
     while dealer.dealer_hit?
@@ -72,15 +65,25 @@ class Game
     end
   end
 
-  def dealer_bust_check
-    if dealer.score > 21
-      puts "#{dealer.name} BUST! #{player.name} WINS!".colorize(:light_cyan)
-      exit_game
+  def bust_check
+    if player.busts?
+      bust_event(buster: player, winner: dealer)
+    elsif dealer.busts?
+      bust_event(buster: dealer, winner: player)
     end
   end
 
+  def bust_event(buster:, winner:)
+    puts "#{buster.name} BUSTS! #{winner.name} WINS!".colorize(:light_cyan)
+    exit_game
+  end
+
   def evaluate_winner
-    opponents.max_by(&:score)
+    if player.score > dealer.score
+      player
+    elsif player.score < dealer.score
+      dealer
+    end
   end
 
   def show_game_result
