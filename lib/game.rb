@@ -1,10 +1,10 @@
 class Game
-  attr_reader :deck, :player, :dealer
+  attr_reader :player, :dealer, :deck
 
-  def initialize
-    @deck = Deck.new
-    @player = Hand.new(name: "Player")
-    @dealer = Hand.new(name: "Dealer")
+  def initialize(player:, dealer:, deck:)
+    @player = player
+    @dealer = dealer
+    @deck = deck
   end
 
   def next_card
